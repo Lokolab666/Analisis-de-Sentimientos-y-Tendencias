@@ -6,21 +6,20 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 import pickle
 import numpy as np
 
-
 app = FastAPI()
 
 # Load models
-model_sentiments_data_original = load_model("Despliegue/modelos/nlp_pqrs_original.h5")
-model_sentiments_data_mezclada = load_model("Despliegue/modelos/nlp_sintetica.h5")
+model_sentiments_data_original = load_model("modelos/nlp_pqrs_original.h5")
+model_sentiments_data_mezclada = load_model("modelos/nlp_sintetica.h5")
 
-with open("Despliegue/modelos/tokenizer.pkl", "rb") as file:
+with open("modelos/tokenizer.pkl", "rb") as file:
     tokenizer = pickle.load(file)
 
-fasttext_model_lda = FastText.load("app/models/FastText-Model-For-ABSA.bin")
+fasttext_model_lda = FastText.load("modelos/FastText-Model-For-ABSA.bin")
 
 # Define aspects for similarity
 aspects = [
-    "citas medicas", "enfermeria", "urgencias", "gestion documental", 
+    "citas medicas", "enfermeria", "urgencias", "gestion documental",
     "procedimientos de salud", "aseo y limpieza", "facturacion"
 ]
 
@@ -48,14 +47,18 @@ def predict_sentimiento(text: str):
 @app.post("/tendencias_lda")
 def predict_tendencias(text: str):
     def get_similarity(text, aspect):
+        if fasttext_model_lda is None:
+            return 0
         try:
-            text = " ".join(text)  # Simple tokenization
-            return fasttext_model.wv.n_similarity(text, aspect)
+            text_tokens = text.split()
+            aspect_tokens = aspect.split()
+            return fasttext_model_lda.wv.n_similarity(text_tokens, aspect_tokens)
         except Exception:
             return 0
 
     similarities = {aspect: get_similarity(text, aspect) for aspect in aspects}
-    top_aspects = sorted(similarities.items(), key=lambda item: item[1], reverse=True)[:3]
+    top_aspects = sorted(similarities.items(), key=lambda item: item[1], reverse=True)[:5]
+
     response = [{"aspecto": aspect, "similitud": round(similarity * 100, 2)} for aspect, similarity in top_aspects]
     return {"texto": text, "top_tendencias": response}
 
