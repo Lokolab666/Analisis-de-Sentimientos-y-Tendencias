@@ -85,9 +85,9 @@ Este proyecto es un servicio web basado en FastAPI que proporciona dos funcional
    ```
 3. Ejecutar el contenedor:
    ```sh
-   docker run -p 8000:8000 sentiment-trend-api
+   docker run -p 8070:8070 sentiment-trend-api
    ```
-4. La API estará disponible en `http://localhost:8000`.
+4. La API estará disponible en `http://localhost:8070`.
 
 ## Uso
 - Puede probar los endpoints utilizando herramientas como Postman o cURL- La API esta deplegada en el [enlace](https://sentiment-trend-api-643026306142.us-central1.run.app) para su consumo externo con sus correspondientes endpoints.
