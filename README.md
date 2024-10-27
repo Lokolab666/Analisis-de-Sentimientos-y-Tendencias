@@ -90,7 +90,8 @@ Este proyecto es un servicio web basado en FastAPI que proporciona dos funcional
 4. La API estará disponible en `http://localhost:8000`.
 
 ## Uso
-- Puede probar los endpoints utilizando herramientas como Postman o cURL.
+- Puede probar los endpoints utilizando herramientas como Postman o cURL- La API esta deplegada en el [enlace](https://sentiment-trend-api-643026306142.us-central1.run.app) para su consumo externo con sus correspondientes endpoints.
+- La API esta deplegada en el [enlace](https://sentiment-trend-api-643026306142.us-central1.run.app) para su consumo externo con sus correspondientes endpoints.
 
 ## Requisitos
 Todas las dependencias están listadas en `requirements.txt`:
