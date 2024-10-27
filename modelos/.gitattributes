@@ -1,0 +1,2 @@
+*.npy filter=lfs diff=lfs merge=lfs -text
+FastText-Model-For-ABSA.bin.wv.vectors_ngrams.npy filter=lfs diff=lfs merge=lfs -text
